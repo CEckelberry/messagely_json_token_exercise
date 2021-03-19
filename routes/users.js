@@ -1,9 +1,17 @@
+const User = require("../models/user");
+const { router } = require("../app");
+const { authenticateJWT, ensureLoggedIn, ensureCorrectUser} = require("../middleware/auth")
+
 /** GET / - get list of users.
  *
  * => {users: [{username, first_name, last_name, phone}, ...]}
  *
  **/
 
+router.get("/", async (req, res, next) => {
+    let users = await User.all();
+    return res.json(users);
+})
 
 /** GET /:username - get detail of users.
  *
